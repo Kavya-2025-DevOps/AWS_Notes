@@ -1,0 +1,222 @@
+Contents
+Situation-based questions	2
+CI/CD & Deployment Scenarios	2
+1.	Pipeline Failure Under Pressure	2
+2.	Long Build Times	2
+3.	Broken GitHub Actions Workflow	2
+4. Kubernetes & Docker Scenarios	3
+Based on one Project only:	6
+
+
+ 
+Your resume is solid for a Sr. DevOps role, so interviewers will focus heavily on real-world scenarios, decision-making, and troubleshooting depth rather than just tool knowledge. Below are high-probability situation-based questions tailored to your experience, along with what they’re actually trying to test.
+________________________________________
+Situation-based questions
+CI/CD & Deployment Scenarios
+1.	Pipeline Failure Under Pressure
+
+"A Jenkins pipeline fails during a production deployment. What steps do you take?"
+They expect:
+•	Log analysis (console output, stage failure)
+•	Rollback strategy
+•	Communication with stakeholders
+•	Root cause + prevention (retry logic, alerts)
+________________________________________
+2.	Long Build Times
+
+"Your Maven build suddenly takes 3x longer. How do you troubleshoot?"
+Focus on:
+•	Dependency issues / Nexus slowness
+•	Resource bottlenecks (CPU/memory)
+•	Parallel builds, caching
+•	Recent changes in pipeline
+________________________________________
+3.	Broken GitHub Actions Workflow
+
+"A GitHub Actions pipeline works locally but fails in CI. Why?"
+Common angles:
+•	Environment differences
+•	Missing secrets/env variables
+•	Permissions (IAM, tokens)
+•	Dependency versions
+4. Kubernetes & Docker Scenarios
+4. Pod CrashLoopBackOff
+"A pod is लगातार restarting in Kubernetes. What will you check?"
+Expected approach:
+•	kubectl describe pod / logs
+•	Liveness/readiness probes
+•	Resource limits
+•	Config issues (env, secrets)
+________________________________________
+5. Zero-Downtime Deployment
+"How do you ensure zero downtime during deployment in Kubernetes?"
+Talk about:
+•	Rolling updates
+•	Readiness probes
+•	Replica sets
+•	Blue-green / canary strategy
+________________________________________
+6. Container Works Locally but Fails in Cluster
+Possible reasons:
+•	Config differences
+•	Networking / service issues
+•	Missing dependencies
+•	Security context restrictions
+________________________________________
+☁️ AWS & Infrastructure Scenarios
+7. High AWS Bill Suddenly
+"Your AWS cost spikes overnight. What do you do?"
+They expect:
+•	Check EC2/EKS usage
+•	Auto-scaling misconfig
+•	Unused resources (EBS, snapshots)
+•	Use Cost Explorer + tagging
+________________________________________
+8. Terraform Deployment Fails Midway
+"Terraform apply fails after creating some resources. What next?"
+Answer should include:
+•	State file consistency
+•	terraform plan + refresh
+•	Import or taint resources
+•	Avoid manual drift
+________________________________________
+9. Server Not Accessible (EC2)
+Checklist:
+•	Security groups / NACL
+•	Instance status
+•	SSH key / IAM role
+•	Network (VPC, subnet, route tables)
+________________________________________
+🔄 Automation & Configuration (Ansible/Scripting)
+10. Ansible Playbook Fails on Few Servers
+What to check:
+•	Inventory issues
+•	SSH connectivity
+•	OS/package differences
+•	Idempotency problems
+________________________________________
+11. Script Works Manually but Fails in Cron/Jenkins
+Classic scenario:
+•	PATH issues
+•	Permissions
+•	Environment variables
+•	Shell differences
+________________________________________
+📊 Monitoring & Incident Scenarios
+12. Production Alert at 2 AM
+"CPU is 100% on a service. What’s your action plan?"
+Strong answer includes:
+•	Check metrics (Prometheus/Grafana)
+•	Identify process / pod
+•	Scale or restart
+•	Root cause analysis
+________________________________________
+13. No Alerts Triggered but System Down
+They want:
+•	Monitoring gaps
+•	Alert misconfiguration
+•	Need for better SLIs/SLOs
+________________________________________
+🤝 Collaboration & Process Scenarios
+14. Developer Blames DevOps for Deployment Failure
+Test:
+•	Communication
+•	Log-based evidence
+•	Joint debugging approach
+•	No blame culture
+________________________________________
+15. Handling Multiple Production Issues Simultaneously
+They expect:
+•	Prioritization (impact-based)
+•	Delegation
+•	Clear communication
+________________________________________
+🚀 Advanced/Leadership Scenarios (Important for Sr. Role)
+16. Designing CI/CD from Scratch
+You should cover:
+•	Tool choice (Jenkins vs GitHub Actions)
+•	Security (secrets, access)
+•	Pipeline stages
+•	Rollback strategy
+________________________________________
+17. Improving Existing DevOps Process
+Talk about:
+•	Bottleneck identification
+•	Automation opportunities
+•	Metrics (deployment frequency, failure rate)
+________________________________________
+18. Mentoring Junior Engineers
+Since you mentioned mentoring:
+•	Knowledge sharing
+•	Code reviews
+•	Documentation
+________________________________________
+⚠️ Reality Check (Important)
+Some gaps interviewers might probe based on your resume:
+•	Deep Kubernetes internals (not just usage)
+•	Advanced AWS (beyond EC2/S3/IAM/EKS basics)
+•	Real production incidents (they’ll expect detailed stories)
+Be ready with 2–3 strong real incident stories:
+•	What broke
+•	What YOU did
+•	Impact
+•	Lessons learned
+________________________________________
+If you want, I can:
+•	Turn these into mock interview Q&A with sample answers, or
+•	Do a rapid-fire mock interview like a real panel round
+Just tell me 👍
+
+Here are realistic situational interview questions tailored to your “Project 5: Spark” experience as a Sr. DevOps Engineer. These are the kind of scenario-based questions interviewers use to test how you actually think and operate in production environments.
+________________________________________
+Based on one Project only:
+🔧 CI/CD & Jenkins
+1.	Your Jenkins pipeline suddenly starts failing after a merge to the main branch. How do you debug and resolve it quickly without blocking releases?
+2.	A deployment pipeline is taking too long (40+ minutes). What steps would you take to optimize it?
+3.	You need to implement a rollback mechanism in your CI/CD pipeline. How would you design it?
+________________________________________
+🧪 Code Quality (SonarQube, JaCoCo)
+4.	A critical release is blocked because SonarQube quality gate fails. The dev team insists it's safe to deploy. What would you do?
+5.	Code coverage dropped significantly in JaCoCo after a new feature. How do you handle this situation?
+________________________________________
+🐳 Docker & Kubernetes
+6.	A containerized application works fine locally but crashes in Kubernetes. How do you troubleshoot?
+7.	Pods in a Kubernetes deployment are continuously restarting (CrashLoopBackOff). What could be the reasons and how do you fix it?
+8.	Your application needs zero-downtime deployment. How would you implement that in Kubernetes?
+________________________________________
+☁️ AWS & Terraform
+9.	A Terraform apply accidentally deletes a production resource. How would you prevent this in the future?
+10.	Your AWS bill suddenly spikes. How do you investigate and optimize costs?
+11.	You need to provision identical infrastructure across dev, QA, and prod. How would you structure your Terraform code?
+________________________________________
+⚙️ Ansible & Automation
+12.	An Ansible playbook runs successfully on some servers but fails on others. How do you debug?
+13.	You are asked to automate patching across hundreds of servers. How would you design the solution?
+________________________________________
+📊 Monitoring (Prometheus & Grafana)
+14.	You receive an alert that CPU usage is high, but the application seems fine. What’s your approach?
+15.	How would you design a monitoring system to detect early signs of system failure?
+________________________________________
+🔄 Git & Version Control
+16.	A developer accidentally pushes sensitive data to Git. What steps do you take?
+17.	There are frequent merge conflicts in your team. How would you improve the branching strategy?
+________________________________________
+🛠️ Shell Scripting & Automation
+18.	A backup script you wrote failed silently for a week. How do you prevent this in future?
+19.	How would you design a script to automate cleanup of unused files/logs safely?
+________________________________________
+🚨 Incident & Performance Management
+20.	Production is down, and logs are not giving clear information. What’s your step-by-step approach?
+21.	A deployment caused performance degradation. How do you identify the root cause?
+22.	How do you handle a situation where multiple alerts fire simultaneously?
+________________________________________
+🧠 Behavioral / Ownership
+23.	Tell me about a time when you automated a completely manual process. What impact did it have?
+24.	Describe a situation where you had to convince developers to follow DevOps best practices.
+25.	You introduced a new tool (e.g., Terraform, Kubernetes), but the team resisted. How did you handle it?
+________________________________________
+If you want, I can also:
+•	Turn these into perfect answer templates (STAR format)
+•	Conduct a mock interview with follow-up questions
+•	Or give real-world answers based on your project
+
