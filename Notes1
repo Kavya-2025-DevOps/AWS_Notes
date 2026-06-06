@@ -1,0 +1,621 @@
+Contents
+AWS DevOps Architecture Interview Questions	5
+1. Design & Architecture Basic to Intermediate	5
+1.	How would you design a highly available web application on AWS?	5
+2.	Explain the difference between Multi-AZ and Multi-Region architecture.	5
+3.	How do you design fault-tolerant systems in AWS?	6
+4.	How would you architect a scalable microservices platform on AWS?	7
+5.	What services would you use for a production-grade CI/CD pipeline?	7
+6.	Explain how you would separate environments (dev/stage/prod) in AWS.	7
+7.	How would you design a centralized logging architecture?	7
+8.	Explain blue-green deployment architecture in AWS.	8
+9.	How would you implement canary deployments?	8
+10.	What are the tradeoffs between monolith vs microservices on AWS?	8
+2. High Availability & Disaster Recovery	10
+1. Design a DR strategy for a critical banking application	10
+2. Explain RTO and RPO with AWS examples.	10
+3. How would you fail over traffic between regions?	10
+4. How do Route 53 health checks work?	10
+5. Explain active-active vs active-passive setup.	10
+6. How would you back up EKS clusters?	10
+7. How do you architect zero-downtime deployments?	10
+8. Explain cross-region replication for S3 and RDS.	10
+9. What happens if one Availability Zone fails?	10
+10. How would you test disaster recovery readiness?	10
+3. Networking Architecture	11
+1.	Design a secure VPC architecture for enterprise workloads.	11
+2.	Explain public vs private subnet design.	11
+3.	What is the purpose of NAT Gateway?	11
+4.	How would you connect on-premises datacenter with AWS?	11
+5.	Explain Transit Gateway architecture.	11
+6.	Difference between Security Groups and NACLs.	11
+7.	How would you secure east-west traffic in Kubernetes?	11
+8.	Explain hybrid cloud architecture using AWS.	11
+9.	Design a multi-account networking strategy.	11
+10.	What are VPC endpoints and when would you use them?	11
+4. CI/CD Architecture	12
+1.	Design an enterprise CI/CD pipeline using AWS services.	12
+2.	How would you implement GitOps on AWS?	12
+3.	Explain rollback strategies in deployment pipelines.	12
+4.	How would you secure secrets in CI/CD?	12
+5.	Compare Jenkins vs GitHub Actions vs CodePipeline.	12
+6.	How would you deploy to multiple environments automatically?	12
+7.	Explain immutable infrastructure.	12
+8.	How do you handle database migrations in CI/CD?	12
+9.	Design a deployment strategy for Kubernetes workloads.	12
+10.	How would you implement approvals in production releases?	12
+5. Kubernetes / EKS Architecture	13
+1.	How would you architect a production EKS cluster?	13
+2.	Explain EKS node groups.	13
+3.	How do you autoscale workloads in Kubernetes?	13
+4.	Design multi-tenant Kubernetes architecture.	13
+5.	Explain service mesh architecture.	13
+6.	How would you secure Kubernetes secrets?	13
+7.	Explain ingress controller architecture.	13
+8.	How do you monitor EKS clusters?	13
+9.	How would you isolate workloads between teams?	13
+10.	Explain Kubernetes networking in AWS.	13
+6. Infrastructure as Code	14
+1.	Compare CloudFormation vs Terraform.	14
+2.	How would you structure Terraform modules for enterprise use?	14
+3.	Explain remote state management.	14
+4.	How do you manage secrets in Terraform?	14
+5.	Explain drift detection.	14
+6.	How would you implement reusable infrastructure patterns?	14
+7.	How do you manage multiple AWS accounts with Terraform?	14
+8.	Explain policy-as-code.	14
+9.	How would you automate infrastructure validation?	14
+10.	What are the risks of IaC and how do you mitigate them?	14
+7. Security Architecture	15
+1.	Design a secure AWS landing zone.	15
+2.	Explain IAM role-based access design.	15
+3.	How would you implement least privilege access?	15
+4.	Explain AWS Organizations and SCPs.	15
+5.	How would you secure secrets management?	15
+6.	Explain KMS encryption architecture.	15
+7.	How would you monitor security events?	15
+8.	Explain Zero Trust architecture in AWS.	15
+9.	How do you secure container images?	15
+10.	Design secure CI/CD pipelines.	15
+8. Monitoring & Observability	16
+1.	Design centralized monitoring for multi-account AWS environments.	16
+2.	Explain observability pillars.	16
+3.	How would you collect logs from EKS?	16
+4.	Explain distributed tracing architecture.	16
+5.	How would you monitor serverless applications?	16
+6.	Design alerting architecture for production systems.	16
+7.	Compare CloudWatch vs Prometheus vs Grafana.	16
+8.	How would you reduce alert fatigue?	16
+9.	Explain SLI/SLO/SLA concepts.	16
+10.	How do you troubleshoot intermittent production failures?	16
+9. Cost Optimization Architecture	17
+1.	How would you optimize AWS infrastructure costs?	17
+2.	Explain Spot Instances strategy.	17
+3.	Design cost-efficient EKS architecture.	17
+4.	How would you monitor cloud spending?	17
+5.	Explain autoscaling cost trade-offs.	17
+6.	How do Savings Plans work?	17
+7.	How would you optimize storage costs?	17
+8.	Explain serverless cost optimization.	17
+9.	Design a budget alerting mechanism.	17
+10.	How would you right-size infrastructure?	17
+10. Real-World Scenario Questions	17
+1.	Your production deployment failed. How do you recover?	17
+2.	CPU suddenly spikes across Kubernetes nodes. What do you investigate?	17
+3.	Users report intermittent latency. How do you debug?	17
+4.	One region is down. Explain your recovery process.	17
+5.	Terraform state got corrupted. What do you do?	17
+6.	Jenkins master crashed before release. Recovery plan?	17
+7.	EKS pods are restarting continuously. Troubleshooting approach?	17
+8.	Database connections are exhausted. Root-cause possibilities?	17
+9.	Your deployment caused downtime. How do you prevent recurrence?	17
+10.	Security team found exposed credentials in logs. Next steps?	17
+Frequently Asked AWS Services in Architecture Interviews	17
+Senior-Level Follow-Up Questions	18
+1.	Interviewers often go deeper with:	18
+2.	Why did you choose this architecture?	18
+3.	What are the failure points?	18
+4.	How does this scale to 10x traffic?	18
+5.	What are the cost implications?	18
+6.	How do you secure it?	18
+7.	How do you monitor it?	18
+8.	What happens during regional outage? How would you automate it?	18
+9.	How do you test deployments safely?	18
+10.	What would you improve after 1 year?	18
+Preparation Strategy	18
+
+
+ 
+Here are strong architecture-level AWS DevOps interview questions commonly asked for senior DevOps Engineers, Cloud Architects, Platform Engineers, and SRE roles involving Amazon Web Services.
+
+AWS DevOps Architecture Interview Questions
+
+1. Design & Architecture
+Basic to Intermediate
+1.	How would you design a highly available web application on AWS?
+I would design the application using a multi-AZ architecture in AWS. 
+Traffic would come through Route53 and CloudFront (CDN – Content Delivery Network) into an ALB. 
+The application layer would run on EKS (or EC2 Auto Scaling Groups) distributed across multiple Availability Zones.
+Databases would use RDS Multi-AZ (or Aurora) with automatic failover. 
+Infrastructure would be provisioned through Terraform, and deployments automated via Jenkins or GitHub Actions.
+Monitoring would use CloudWatch, Prometheus, and Grafana.
+Security would include IAM least privilege, private subnets, WAF (Web Application Firewall), and encryption. This architecture ensures high availability, scalability, fault tolerance, and automated recovery.
+Users
+  ↓
+Route53
+  ↓
+CloudFront
+  ↓
+ALB
+  ↓
+EKS / EC2 Auto Scaling
+  ↓
+RDS multi-AZ
+  ↓
+S3 / Redis	Core Components
+•	Route53 → DNS and health-based routing 
+•	CloudFront → CDN for caching/static acceleration 
+•	Application Load Balancer (ALB) → traffic distribution 
+•	EKS or EC2 Auto Scaling Group → application layer 
+•	RDS Multi-AZ / Aurora → highly available database 
+•	S3 → static assets, backups, artifacts 
+•	Elastic Cache (Redis) → session/cache layer 
+•	VPC with public/private subnets across multiple AZs 
+•	CloudWatch + Prometheus + Grafana → monitoring 
+•	Terraform → Infrastructure as Code 
+•	Jenkins/GitHub Actions → CI/CD automation
+
+
+2.	Explain the difference between Multi-AZ and Multi-Region architecture.
+multiple Availability Zones	multiple AWS Regions
+Multi-AZ means deploying infrastructure across multiple Availability Zones within the same AWS Region.
+Region: ap-south-1 (Mumbai) -> 1(a), 1(b), 1(c)
+Main goal:
+•	High Availability 
+•	protection against AZ/datacentre failure	Multi-Region means deploying the application across multiple AWS Regions.
+Region:
+Primary Region → ap-south-1 (Mumbai)
+Secondary Region → us-east-1 (Virginia)
+Main goals:
+•	Disaster Recovery (DR) 
+•	Global availability 
+•	Low latency for global users 
+•	Business continuity during regional outages
+If Mumbai region goes down completely: Route53 failover redirects traffic to Virginia.
+
+
+Multi-AZ architecture improves high availability within a single AWS region by distributing workloads across multiple Availability Zones. 
+Multi-Region architecture extends resilience further by deploying workloads across geographically separate AWS regions, primarily for disaster recovery, global scalability, and protection against complete regional failures. 
+Multi-AZ is generally the default for production workloads, while multi-Region is used for mission-critical systems requiring maximum resilience.”
+Important Interview Point: Multi-AZ ≠ Disaster Recovery
+Many candidates incorrectly say multi-AZ is DR; Correct answer is:
+•	Multi-AZ provides High Availability 
+•	Multi-Region provides Disaster Recovery
+3.	How do you design fault-tolerant systems in AWS?
+
+To design fault-tolerant systems in AWS, I eliminate single points of failure by distributing workloads across multiple Availability Zones and, where required, multiple regions. I use load balancers, Auto Scaling, Kubernetes self-healing, managed databases with failover, asynchronous messaging, Infrastructure as Code, and comprehensive monitoring. The goal is to ensure the system continues operating automatically even during infrastructure, application, or network failures.
+Java - Application deployed in:
+•	AWS Region us-east-1
+
+Inside that region:
+•	3 Availability Zones 
+•	One EKS cluster 
+•	Multi-AZ database
+
+us-east-1
+├── AZ-a
+├── AZ-b
+└── AZ-c
+
+Primary: us-east-1
+Secondary: us-west-2
+
+
+4.	How would you architect a scalable microservices platform on AWS?
+I would design a scalable microservices platform on AWS using containerized services deployed on EKS, with each service independently scalable and owning its own database. Communication would be a mix of synchronous APIs via ALB/API Gateway and asynchronous messaging using SQS, SNS, and EventBridge. The system would be highly available using multi-AZ deployment, autoscaling at both pod and node levels, and fault isolation through decoupling. CI/CD pipelines with Jenkins or GitHub Actions and Terraform for infrastructure ensure repeatability and fast delivery, while observability using Prometheus, Grafana, and CloudWatch ensures operational visibility.
+
+5.	What services would you use for a production-grade CI/CD pipeline?
+For a production-grade CI/CD pipeline, I would use GitHub as source control, and Jenkins or GitHub Actions for CI. 
+The pipeline would build and test the application, run security scans, and build a Docker image which is pushed to Amazon ECR. 
+For deployment, I would use Kubernetes on EKS with Helm (or ArgoCD for GitOps-based) deployments.
+Terraform would manage infrastructure provisioning. 
+The pipeline would promote the same artifact from dev to staging to production with approval gates, and production deployments would use blue/green (or canary strategies).
+Monitoring would be handled using CloudWatch, Prometheus, and Grafana with automated rollback triggered by health metrics.
+6.	Explain how you would separate environments (dev/stage/prod) in AWS.
+I separate environments primarily using AWS multi-account strategy under AWS Organizations, which gives strong security boundaries.
+Each environment has its own VPC, compute, database, and storage resources. 
+CI/CD pipelines promote the same build artifact from dev to staging to production with appropriate approvals. 
+Terraform ensures consistent infrastructure across environments, while IAM policies and SCPs (Service Control Policy) enforce strict governance, especially in production.
+SCP = Service Control Policy (AWS Organizations feature)
+SCPs are account-level guardrails used in AWS Organizations to control:
+“What actions are allowed or denied inside an AWS account — regardless of IAM permissions.”
+So even if a developer has admin IAM access, SCP can still block actions at the account level.
+
+7.	How would you design a centralized logging architecture?
+I would design a centralized logging architecture using Fluent Bit in Kubernetes and CloudWatch agents on EC2 to collect logs from all services.
+Logs would be shipped to Amazon CloudWatch Logs for real-time monitoring and optionally to OpenSearch for advanced search and visualization.
+For long-term retention, logs would be archived in S3 with lifecycle policies.
+I would enforce structured JSON logging with correlation IDs to trace requests across microservices.
+Alerts would be generated using CloudWatch metric filters and routed via SNS to Slack or PagerDuty.
+This design ensures centralized visibility, scalability, security, and efficient debugging across distributed systems.
+8.	Explain blue-green deployment architecture in AWS.
+I know,
+9.	How would you implement canary deployments?
+I know
+10.	 What are the trade-offs between monolith vs microservices on AWS?
+Monolith vs Microservices on AWS — Trade-offs
+Aspect	Monolith Architecture	Microservices Architecture
+Definition	Single application deployed as one unit	Application split into independent services
+Codebase	Single code repository	Multiple repositories/services
+Deployment	Entire app deployed together	Services deployed independently
+Scalability	Scale whole application	Scale only required services
+Fault Isolation	Failure may impact entire app	Failure isolated to specific service
+Complexity	Simpler architecture	High distributed-system complexity
+Development Speed (Initial)	Faster for small teams	Slower initially due to setup overhead
+Operational Overhead	Low	High
+Infrastructure Cost	Lower	Higher
+CI/CD Pipelines	Simpler	Multiple pipelines/services
+Database Design	Usually shared database	Database per service
+Technology Flexibility	Usually one tech stack	Polyglot possible (Java, Go, Python, etc.)
+Team Structure	Centralized team ownership	Independent service ownership
+Release Coordination	One release affects all modules	Teams release independently
+Debugging	Easier	Harder due to distributed tracing
+Observability Needs	Basic monitoring sufficient	Requires centralized logging/tracing
+Communication	Internal function calls	REST/gRPC/events/queues
+Network Dependency	Minimal	High internal network traffic
+Data Consistency	Easier ACID transactions	Eventual consistency challenges
+Resilience	Lower fault tolerance	Better fault isolation
+Testing	Easier end-to-end testing	Complex integration testing
+Performance	Lower network latency	Network overhead between services
+AWS Services Commonly Used	EC2, ECS, RDS	EKS/ECS, SQS, SNS, EventBridge, DynamoDB
+Best For	Startups, MVPs, small teams	Large-scale enterprise systems
+Team Size Suitability	Small to medium teams	Medium to large engineering orgs
+Change Impact	Small changes redeploy entire app	Changes isolated to one service
+Security Management	Simpler	More granular but complex
+Disaster Recovery	Easier centralized DR	Complex distributed DR
+Migration Difficulty	Easy to start	Hard to design correctly initially
+Typical Scaling Pattern	Vertical + horizontal scaling	Mostly horizontal scaling
+Examples	Traditional ERP systems	Netflix, Amazon, Uber
+
+AWS Architecture Comparison
+Layer	Monolith on AWS	Microservices on AWS
+Compute	EC2 ASG / ECS	EKS / ECS
+Load Balancer	ALB	API Gateway + ALB
+Database	Single RDS	Multiple DBs per service
+Messaging	Minimal	SQS/SNS/EventBridge
+Monitoring	CloudWatch	CloudWatch + Prometheus + Grafana
+Deployment	Single pipeline	Independent service pipelines
+Scaling	Entire app scales	Per-service autoscaling
+
+2. High Availability & Disaster Recovery
+
+1. Design a DR strategy for a critical banking application
+2. Explain RTO and RPO with AWS examples.
+3. How would you fail over traffic between regions?
+4. How do Route 53 health checks work?
+5. Explain active-active vs active-passive setup.
+In an Active-Active setup:
+Multiple environments/regions are active simultaneously and serve live traffic at the same time.
+
+Both regions:
+•	process requests 
+•	handle traffic 
+•	remain operational simultaneously	In an Active-Passive setup:
+One environment actively serves traffic, while another standby environment waits for failover.
+
+If primary region fails:
+•	Route53 health check detects failure 
+•	traffic redirects to standby region
+
+Active-active architecture runs multiple regions simultaneously to serve production traffic, providing maximum availability, scalability, and low latency, but with higher complexity and cost. Active-passive architecture uses one primary environment and a standby environment for disaster recovery, making it simpler and more cost-effective, though failover times are slightly higher. The choice depends on business SLA, RTO/RPO requirements, global traffic patterns, and operational complexity tolerance.
+6. How would you back up EKS clusters?
+7. How do you architect zero-downtime deployments?
+8. Explain cross-region replication for S3 and RDS.
+9. What happens if one Availability Zone fails?
+10. How would you test disaster recovery readiness?
+
+3. Networking Architecture
+1.	Design a secure VPC architecture for enterprise workloads.
+2.	Explain public vs private subnet design.
+3.	What is the purpose of NAT Gateway?
+4.	How would you connect on-premises datacenter with AWS?
+5.	Explain Transit Gateway architecture.
+6.	Difference between Security Groups and NACLs.
+7.	How would you secure east-west traffic in Kubernetes?
+8.	Explain hybrid cloud architecture using AWS.
+9.	Design a multi-account networking strategy.
+10.	What are VPC endpoints and when would you use them?
+
+4. CI/CD Architecture
+1.	Design an enterprise CI/CD pipeline using AWS services.
+2.	How would you implement GitOps on AWS?
+3.	Explain rollback strategies in deployment pipelines.
+
+4.	How would you secure secrets in CI/CD?
+
+5.	Compare Jenkins vs GitHub Actions vs CodePipeline.
+
+6.	How would you deploy to multiple environments automatically?
+
+7.	Explain immutable infrastructure.
+
+8.	How do you handle database migrations in CI/CD?
+
+9.	Design a deployment strategy for Kubernetes workloads.
+
+10.	How would you implement approvals in production releases?
+
+5. Kubernetes / EKS Architecture
+1.	How would you architect a production EKS cluster?
+
+2.	Explain EKS node groups.
+
+3.	How do you autoscale workloads in Kubernetes?
+
+4.	Design multi-tenant Kubernetes architecture.
+
+5.	Explain service mesh architecture.
+
+6.	How would you secure Kubernetes secrets?
+
+7.	Explain ingress controller architecture.
+
+8.	How do you monitor EKS clusters?
+
+9.	How would you isolate workloads between teams?
+
+10.	Explain Kubernetes networking in AWS.
+
+6. Infrastructure as Code
+
+1.	Compare CloudFormation vs Terraform.
+
+2.	How would you structure Terraform modules for enterprise use?
+
+3.	Explain remote state management.
+
+4.	How do you manage secrets in Terraform?
+
+5.	Explain drift detection.
+
+6.	How would you implement reusable infrastructure patterns?
+
+7.	How do you manage multiple AWS accounts with Terraform?
+
+8.	Explain policy-as-code.
+
+9.	How would you automate infrastructure validation?
+
+10.	What are the risks of IaC and how do you mitigate them?
+
+7. Security Architecture
+
+1.	Design a secure AWS landing zone.
+
+2.	Explain IAM role-based access design.
+
+3.	How would you implement least privilege access?
+
+4.	Explain AWS Organizations and SCPs.
+
+5.	How would you secure secrets management?
+
+6.	Explain KMS encryption architecture.
+
+7.	How would you monitor security events?
+
+8.	Explain Zero Trust architecture in AWS.
+
+9.	How do you secure container images?
+
+10.	Design secure CI/CD pipelines.
+
+8. Monitoring & Observability
+1.	Design centralized monitoring for multi-account AWS environments.
+
+2.	Explain observability pillars.
+
+3.	How would you collect logs from EKS?
+
+4.	Explain distributed tracing architecture.
+
+5.	How would you monitor serverless applications?
+
+6.	Design alerting architecture for production systems.
+
+7.	Compare CloudWatch vs Prometheus vs Grafana.
+
+8.	How would you reduce alert fatigue?
+
+9.	Explain SLI/SLO/SLA concepts.
+
+10.	How do you troubleshoot intermittent production failures? 
+
+
+9. Cost Optimization Architecture
+
+1.	How would you optimize AWS infrastructure costs?
+
+Analyse Current Usage 
+•	Use AWS Cost Explorer, AWS Budgets, and AWS Trusted Advisor to identify high-cost services, under-utilized resources, and spending trends. 
+•	Tag resources properly to track costs by project, environment, or team. 
+Right-Size Resources 
+•	Review CPU, memory, and storage utilization using Amazon CloudWatch. 
+•	Downgrade overprovisioned EC2 instances and choose appropriate instance families based on workload requirements. 
+Eg: An instance is tagged to type of x – which has (high CPU, large memory), observe for few weeks and downgrade to a y (medium CPU, medium memory) depending on the actual load.
+
+Use Auto Scaling 
+•	Configure Auto Scaling groups so resources scale up during peak demand and scale down during low-usage periods. 
+•	This prevents paying for unused capacity. 
+Leverage Cost-Effective Pricing Models 
+•	Use Reserved Instances or Savings Plans for predictable workloads to reduce costs significantly. 
+•	Use Spot Instances for fault-tolerant or batch-processing workloads where interruptions are acceptable. 
+Optimize Storage 
+•	Move infrequently accessed data to cheaper storage classes such as S3 Standard-IA, S3 Glacier Instant Retrieval, or S3 Glacier Deep Archive. 
+•	Delete obsolete snapshots, unused EBS volumes, and old backups. 
+Reduce Data Transfer Costs 
+•	Use CloudFront for content delivery. 
+•	Keep services within the same Availability Zone or Region, when possible, to minimize inter-region and cross-AZ transfer charges. 
+Automate Resource Scheduling 
+•	Automatically stop non-production environments during nights and weekends using AWS Lambda or Instance Scheduler. 
+Monitor and Govern Costs 
+•	Set up AWS Budgets and cost alerts. 
+•	Regularly review cost reports and establish FinOps practices to ensure ongoing optimization.
+
+2.	What is AWS Cost Explorer?
+
+AWS Cost Explorer is a cost management tool provided by AWS that helps you analyze, visualize, and understand your AWS spending and usage patterns.
+It provides graphs and reports that show:
+•	How much you're spending on AWS 
+•	Which services are generating the highest costs 
+•	Cost trends over time (daily, monthly, yearly) 
+•	Spending by account, region, service, tag, or resource 
+•	Forecasted future costs
+
+3.	How AWS Budget Alerts Are Set?
+
+1.	Go to AWS Billing and Cost Management. 
+2.	Open AWS Budgets. 
+3.	Click Create Budget. 
+4.	Select Cost Budget. 
+5.	Enter the budget amount (for example, $10,000/month). 
+6.	Configure alert thresholds such as: 
+o	50% of budget ($5,000) 
+o	80% of budget ($8,000) 
+o	100% of budget ($10,000) 
+7.	Choose notification methods: 
+o	Email 
+o	Amazon SNS Topic (for integration with Slack, Lambda, etc.) 
+8.	Save the budget.
+
+Note:
+Many organizations create:
+•	Actual Cost Alerts → Trigger when money is already spent. 
+•	Forecasted Cost Alerts → Trigger when AWS predicts the budget will be exceeded before the end of the month.
+
+
+4.	Explain Spot Instances strategy.
+
+
+
+5.	Design cost-efficient EKS architecture.
+"To design a cost-efficient Amazon EKS architecture, I would focus on optimizing compute costs, scaling resources automatically, and minimizing unused infrastructure while maintaining high availability.
+
+1.	Use AWS manages EKS control plane instead of self managed K8s master.
+2.	Use mixed Nodes – OnDemand Instances and Spot instances.
+3.	Enable cluster Auto scaler
+4.	Right sized Node Instances – Avoid oversized.
+5.	Use HPA
+6.	Use proper stage classes – gp3, gp2 or s3 in long run, archive with policies.
+7.	Separate Node Pools as needed (Node Types)
+8.	Monitor cost continuously9.	
+
+Workload	Node Type
+Critical APIs	On-Demand
+Batch Jobs	Spot
+Dev/Test	Spot
+CI/CD Runners	Spot
+Monitoring Tools	Small On-Demand
+
+6.	How would you monitor cloud spending?
+
+
+
+7.	Explain autoscaling cost trade-offs.
+
+8.	How do Savings Plans work?
+
+9.	How would you optimize storage costs?
+
+10.	Explain serverless cost optimization.
+
+11.	Design a budget alerting mechanism.
+
+12.	How would you right-size infrastructure?
+
+
+
+
+10. Real-World Scenario Questions
+
+1.	Your production deployment failed. How do you recover?
+
+2.	CPU suddenly spikes across Kubernetes nodes. What do you investigate?
+
+3.	Users report intermittent latency. How do you debug?
+
+4.	One region is down. Explain your recovery process.
+
+5.	Terraform state got corrupted. What do you do?
+
+6.	Jenkins master crashed before release. Recovery plan?
+
+7.	EKS pods are restarting continuously. Troubleshooting approach?
+
+8.	Database connections are exhausted. Root-cause possibilities?
+
+9.	Your deployment caused downtime. How do you prevent recurrence?
+
+10.	Security team found exposed credentials in logs. Next steps?
+
+Frequently Asked AWS Services in Architecture Interviews
+
+You should be comfortable with:
+Amazon Web Services EC2
+ECS / EKS
+Lambda
+API Gateway
+VPC
+Route 53
+ALB/NLB
+IAM
+CloudWatch
+CloudTrail
+S3
+RDS
+DynamoDB
+CodePipeline
+CodeBuild
+CodeDeploy
+Systems Manager
+Secrets Manager
+KMS
+Auto Scaling
+Organizations
+GuardDuty
+WAF
+Transit Gateway
+
+Senior-Level Follow-Up Questions
+
+1.	Interviewers often go deeper with:
+2.	Why did you choose this architecture?
+3.	What are the failure points?
+
+4.	How does this scale to 10x traffic?
+
+5.	What are the cost implications?
+
+6.	How do you secure it?
+
+7.	How do you monitor it?
+
+8.	What happens during regional outage?
+How would you automate it?
+
+9.	How do you test deployments safely?
+
+10.	What would you improve after 1 year?
+
+Preparation Strategy
+Focus heavily on:
+Real production scenarios
+Tradeoff discussions
+Cost vs performance decisions
+Security-first architecture
+Kubernetes + Terraform
+CI/CD design
+Incident handling
+Scalability patterns
+
+
