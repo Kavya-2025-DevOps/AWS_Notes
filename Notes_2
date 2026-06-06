@@ -1,0 +1,899 @@
+Table of Contents
+Steps to Follow:	2
+KUBERNETES SCENARIO QUESTIONS	7
+ADVANCED KUBERNETES SCENARIOS	10
+L3 KUBERNETES SCENARIO QUESTIONS (DEEP DIVE)	16
+AWS SCENARIO QUESTIONS	22
+AWS-heavy, aligned with real interviews	25
+Core AWS Architecture (Scenario-Based)	26
+Design a highly available web application on AWS for millions of users. What services would you use and why?	26
+Compute (EC2, EKS, Scaling)	26
+
+
+ 
+*************************** My Preparation – 30 Mar 2026 ******************************
+
+Great — with 8.7 years of DevOps experience and that stack, you’re already in a strong position. Now it’s about 
+structuring your knowledge, 
+sharpening answers, and 
+being ready for scenario-based questions (that’s where most candidates slip).
+Steps to Follow:
+________________________________________
+🎯 1. What Interviewers Will Focus On (Your Level)
+At ~9 years, they expect:
+•	Ownership mindset (not just tool usage)
+•	Architecture decisions
+•	Troubleshooting depth
+•	Real-world scenarios
+•	Optimization & cost awareness
+________________________________________
+🧠 2. Core Areas You MUST Be Strong In
+🔧 CI/CD (Jenkins-heavy)
+Be ready for:
+•	Designing pipelines (Declarative vs Scripted)
+•	Handling failures & rollback strategies
+•	Secure credential handling
+•	Parallel builds & optimization
+👉 Example Question:
+How do you design a scalable CI/CD pipeline?
+Answer Structure:
+•	Code commit → webhook trigger
+•	Build using Maven
+•	Code quality via SonarQube
+•	Artifact storage in Nexus
+•	Docker image build & push
+•	Deploy via Kubernetes
+•	Monitoring integration
+________________________________________
+🐳 Docker + ☸️ Kubernetes (VERY IMPORTANT)
+This is usually the deciding factor.
+Be ready for:
+•	Pod lifecycle
+•	Deployment vs StatefulSet
+•	ConfigMaps & Secrets
+•	Resource limits
+•	HPA (Horizontal Pod Autoscaling)
+•	Troubleshooting (CrashLoopBackOff, OOMKilled)
+👉 Scenario:
+Pod is restarting continuously. What do you do?
+Answer:
+1.	kubectl describe pod
+2.	Check logs (kubectl logs)
+3.	Check resource limits
+4.	Check liveness/readiness probes
+5.	Validate config/env variables
+________________________________________
+☁️ AWS (Expect Deep Questions)
+Focus on:
+•	EC2, S3, IAM
+•	VPC basics (subnets, routing)
+•	Load balancers (ALB vs NLB)
+•	EKS (very important if Kubernetes used)
+👉 Scenario:
+Application is slow in AWS. How do you troubleshoot?
+Cover:
+•	CPU/memory (CloudWatch)
+•	Network latency
+•	Load balancer health checks
+•	Auto-scaling issues
+________________________________________
+🏗️ Terraform (High Priority)
+Be ready for:
+•	State management (remote backend)
+•	Modules
+•	Workspaces
+•	Drift detection
+👉 Question:
+What happens if two people run Terraform apply?
+Answer:
+•	State conflict
+•	Use remote backend + locking (S3 + DynamoDB)
+________________________________________
+📊 Monitoring (Prometheus + Grafana)
+Know:
+•	Metrics vs logs
+•	Alerting strategy
+•	Custom metrics
+👉 Question:
+How do you monitor Kubernetes cluster health?
+Answer:
+•	Node metrics
+•	Pod metrics
+•	API server health
+•	Alerts via Prometheus + Grafana dashboards
+________________________________________
+🐧 Linux + Shell (They WILL test basics)
+Expect:
+•	File permissions
+•	Process management
+•	Networking basics
+👉 Commands to revise:
+•	top, ps, netstat, ss, df, du, grep, awk
+________________________________________
+🔥 3. Real-World Scenarios (Most Important)
+Prepare 5–6 strong stories:
+1. Production issue you solved
+•	What happened?
+•	Impact?
+•	Root cause?
+•	Fix?
+2. CI/CD pipeline you built
+•	Tools used
+•	Challenges
+•	Improvements
+3. Kubernetes issue
+•	Example: pod crash / scaling issue
+4. Cost optimization
+•	Reduced AWS bill?
+•	Optimized resources?
+5. Automation
+•	Manual → automated using shell/Terraform
+________________________________________
+💬 4. HR + Behavioural (Don’t Ignore)
+Prepare answers for:
+•	Why looking for change?
+•	Current role responsibilities
+•	Biggest achievement
+•	Handling pressure / deadlines
+________________________________________
+⚡ 5. Rapid Fire Questions (You Should Answer Instantly)
+•	Difference: Docker vs VM
+•	Git merge vs rebase
+•	Jenkins pipeline vs freestyle
+•	Kubernetes Service types
+•	Terraform plan vs apply
+•	Stateful vs stateless apps
+•	Horizontal vs vertical scaling
+________________________________________
+📅 6. 3-Day Crash Plan (If Interview Anytime)
+Day 1
+•	Kubernetes deep dive
+•	Docker + troubleshooting
+•	CI/CD pipeline revision
+Day 2
+•	AWS + Terraform
+•	Monitoring tools
+•	Real-world scenarios practice
+Day 3
+•	Mock interview
+•	HR questions
+•	Quick revision notes
+________________________________________
+🧩 7. Pro Tips (Based on Real Interviews)
+•	Speak in architecture flow, not just tools
+•	Use phrases like:
+o	“In production…”
+o	“We implemented…”
+o	“To optimize…”
+•	Always mention:
+o	scalability
+o	reliability
+o	security
+
+KUBERNETES SCENARIO QUESTIONS
+
+Perfect — this is exactly what will make or break your interview at 8–9 years level. 
+I’ll give you real-world scenario questions + how to think + strong sample answers.
+________________________________________
+☸️ KUBERNETES SCENARIO QUESTIONS
+________________________________________
+🔥 1. Pod in CrashLoopBackOff
+👉 Question:
+A pod is continuously restarting. What will you do?
+✅ How to Think:
+Interviewers expect step-by-step debugging, not guessing.
+💡 Strong Answer:
+1.	Check pod details:
+2.	kubectl describe pod <pod-name>
+o	Look for events, errors
+3.	Check logs:
+4.	kubectl logs <pod-name>
+5.	Check previous logs (important):
+6.	kubectl logs <pod-name> --previous
+7.	Validate:
+o	Environment variables
+o	ConfigMaps/Secrets
+o	Application crash
+8.	Check probes:
+o	Liveness / Readiness misconfiguration
+9.	Resource issues:
+o	OOMKilled → increase memory
+👉 Bonus (senior-level):
+“I also check if recent deployment caused it and consider rollback.”
+________________________________________
+🔥 2. Application Not Accessible in Browser
+👉 Question:
+App is deployed but not reachable.
+✅ Debug Flow:
+•	Pod running?
+•	Service created?
+•	Ingress configured?
+💡 Answer:
+1.	Check pods:
+2.	kubectl get pods
+3.	Check service:
+4.	kubectl get svc
+5.	Validate:
+o	Correct port mapping
+o	Service type (ClusterIP / NodePort / LoadBalancer)
+6.	If using Ingress:
+o	Check ingress rules – (Routing instructions (what to do) eg: define rules - example.com/app1 → goes to app1-service)
+o	Check ingress controller – (Traffic manager that applies those instructions (how to do it) eg: NGINX Ingress Controller, AWS ALB Controller)
+7.	Network policies (if any)
+________________________________________
+🔥 3. High Memory Usage in Pods
+👉 Question:
+Pods are getting killed due to memory.
+💡 Answer:
+•	Check:
+•	kubectl top pod
+•	Fix:
+o	Increase memory limits
+o	Optimize application
+o	Set proper requests/limits
+👉 Senior Tip:
+Use HPA or VPA depending on use case
+________________________________________
+🔥 4. Rolling Deployment Failure
+👉 Question:
+New deployment failed. How do you handle?
+💡 Answer:
+•	Check rollout status:
+•	kubectl rollout status deployment <name>
+•	Rollback:
+•	kubectl rollout undo deployment <name>
+•	Identify:
+o	Image issue
+o	Config issue
+👉 Add:
+“I ensure readiness probes prevent bad pods from serving traffic.”
+________________________________________
+🔥 5. Node Not Ready
+👉 Question:
+Worker node shows NotReady.
+💡 Answer:
+•	Check node:
+•	kubectl describe node <node>
+•	Possible causes:
+o	Kubelet down
+o	Network issue
+o	Disk pressure
+•	Fix:
+o	Restart kubelet
+o	Check system logs
+
+Good — this is exactly the right focus. At your experience level, Kubernetes questions become deeper, multi-layered, and closer to real production incidents.
+I’ll give you advanced scenario-based questions (these are very commonly asked in product companies and strong service companies).
+________________________________________
+ADVANCED KUBERNETES SCENARIOS
+________________________________________
+🔥 1. Pods Running But Application Still Failing
+👉 Question:
+All pods are in Running state, but the application is not working properly.
+💡 What interviewer expects:
+You understand that Running ≠ Healthy
+✅ Answer:
+•	Check logs:
+•	kubectl logs <pod>
+•	Verify readiness probe:
+o	Pod may be running but not ready
+•	Check service endpoints:
+•	kubectl get endpoints
+•	Validate DB/API connectivity
+•	Check environment variables
+👉 🔑 Key line:
+“Running state only means container is up, not that application is functioning correctly.”
+________________________________________
+🔥 2. Traffic Not Load Balanced Across Pods
+👉 Question:
+You have 5 pods, but traffic is hitting only one pod.
+💡 Answer:
+•	Check service configuration
+•	Ensure:
+o	Proper selector labels
+o	Endpoints include all pods
+•	Check:
+•	kubectl get endpoints
+•	Possible issues:
+o	Session affinity enabled
+o	Readiness probe failing on other pods
+________________________________________
+🔥 3. ConfigMap Updated But App Not Reflecting Changes
+👉 Question:
+You updated ConfigMap, but app still uses old config.
+💡 Answer:
+•	ConfigMaps are not automatically reloaded
+Fix:
+•	Restart pods:
+•	kubectl rollout restart deployment <name>
+👉 Senior-level:
+“Or use config reload mechanisms like sidecars or volume mounts with watchers.”
+________________________________________
+🔥 4. Secret Exposure Concern
+👉 Question:
+How do you ensure secrets are secure in Kubernetes?
+💡 Answer:
+•	Use Kubernetes Secrets (not plain env vars in YAML)
+•	Enable:
+o	Encryption at rest
+o	RBAC restrictions
+•	Avoid:
+o	Hardcoding secrets in images
+👉 Bonus:
+Use external secret managers (AWS Secrets Manager)
+________________________________________
+🔥 5. Cluster Suddenly Slow
+👉 Question:
+Entire Kubernetes cluster performance degraded.
+💡 Debug Steps:
+•	Check node usage:
+•	kubectl top nodes
+•	Check pods consuming resources
+•	Check:
+o	CPU / Memory pressure
+o	Disk I/O
+👉 Possible causes:
+•	Resource starvation
+•	Too many pods on node
+•	No resource limits defined
+________________________________________
+🔥 6. Pod Scheduled on Wrong Node
+👉 Question:
+You want a pod to run only on specific nodes.
+💡 Answer:
+•	Use:
+o	NodeSelector
+o	Node Affinity
+o	Taints & Tolerations
+👉 Example:
+nodeSelector:
+  disktype: ssd
+________________________________________
+🔥 7. Deployment Stuck in Pending State
+👉 Question:
+Pods are not getting scheduled.
+💡 Answer:
+•	Check:
+•	kubectl describe pod
+👉 Common reasons:
+•	Insufficient resources
+•	Node selector mismatch
+•	Taints without tolerations
+________________________________________
+🔥 8. Frequent Pod Evictions
+👉 Question:
+Pods are getting evicted automatically.
+💡 Answer:
+•	Node under pressure:
+o	Memory
+o	Disk
+•	Check:
+•	kubectl describe node
+👉 Fix:
+•	Increase node capacity
+•	Optimize resource usage
+________________________________________
+🔥 9. Zero Downtime Deployment Strategy
+👉 Question:
+How do you ensure zero downtime?
+💡 Answer:
+•	Use rolling updates
+•	Configure:
+o	maxUnavailable=0
+o	maxSurge=1
+•	Use readiness probes
+👉 Advanced:
+Blue-Green or Canary deployments
+________________________________________
+🔥 10. Logs Not Available After Pod Restart
+👉 Question:
+Logs lost after restart.
+💡 Answer:
+•	Containers are ephemeral
+Solution:
+•	Use centralized logging:
+o	EFK / ELK stack
+o	Cloud logging
+________________________________________
+🔥 11. Multiple Containers in One Pod — Why?
+👉 Question:
+When do you use multi-container pods?
+💡 Answer:
+•	Sidecar pattern:
+o	Logging agent
+o	Config reloader
+👉 Example:
+•	App container + Fluentd
+________________________________________
+🔥 12. API Server Not Responding
+👉 Question:
+kubectl commands are failing.
+💡 Answer:
+•	Check control plane:
+o	API server
+o	etcd
+•	Validate:
+o	Network connectivity
+o	Certificates
+________________________________________
+🔥 13. Image Pull Error (ImagePullBackOff)
+👉 Question:
+Pod cannot pull image.
+💡 Answer:
+•	Check:
+o	Image name/tag
+o	Registry access
+o	Credentials
+👉 Fix:
+•	Use imagePullSecrets
+________________________________________
+🔥 14. Autoscaling Not Working
+👉 Question:
+HPA not scaling pods.
+💡 Answer:
+•	Check metrics server
+•	Validate CPU/memory metrics
+•	Ensure requests defined
+________________________________________
+🔥 15. Database Pod Restarting Frequently
+👉 Question:
+DB pod unstable.
+💡 Answer:
+•	Use StatefulSet instead of Deployment
+•	Attach persistent volumes
+•	Check storage issues
+________________________________________
+🧠 WHAT INTERVIEWERS REALLY LOOK FOR
+When you answer, always include:
+✅ Observability
+•	logs
+•	metrics
+•	events
+✅ Root Cause Thinking
+Not just fixing symptoms
+✅ Preventive Measures
+This is what separates you from 5-year candidates
+________________________________________
+🚀 Want to Level Up Further?
+I can next:
+•	Ask very hard real interview questions (L2/L3 rounds)
+•	Do a pressure mock interview
+•	Cover Kubernetes architecture design round
+Just say:
+👉 “Give me L3 Kubernetes questions”
+or
+👉 “Start mock interview”
+
+Perfect — now we’re stepping into L3 / Senior / Architect-level Kubernetes questions.
+At this level, interviewers are testing:
+•	System design thinking
+•	Trade-offs
+•	Production experience
+•	Failure handling at scale
+These are not direct Q&A — they expect structured, thoughtful answers.
+________________________________________
+L3 KUBERNETES SCENARIO QUESTIONS (DEEP DIVE)
+________________________________________
+🔥 1. Design a Highly Available Kubernetes Architecture
+👉 Question:
+Design a highly available Kubernetes cluster for a production system.
+💡 What they expect:
+You think beyond pods — into control plane + infra
+✅ Strong Answer Structure:
+Control Plane:
+•	Multi-master setup (3 or 5 nodes)
+•	etcd cluster (odd number for quorum)
+•	API server behind load balancer
+Worker Nodes:
+•	Spread across multiple AZs
+Networking:
+•	CNI plugin (Calico / Cilium)
+Ingress:
+•	ALB / NGINX Ingress Controller
+Storage:
+•	Persistent volumes (EBS / EFS)
+High Availability:
+•	Pod Anti-Affinity
+•	HPA + Cluster Autoscaler
+👉 🔑 Strong line:
+“I ensure no single point of failure across control plane, nodes, and networking.”
+________________________________________
+🔥 2. How Would You Handle Cluster Failure?
+👉 Question:
+Entire cluster goes down. What’s your recovery plan?
+💡 Answer:
+Immediate:
+•	Check control plane health
+•	Restore API access
+Recovery:
+•	Restore etcd backup
+•	Recreate cluster using Terraform
+Preventive:
+•	Regular etcd backups
+•	Multi-region DR strategy
+👉 🔑 Add:
+“We maintain infra as code to recreate cluster quickly.”
+________________________________________
+🔥 3. Multi-Tenant Kubernetes Cluster Design
+👉 Question:
+How do you securely run multiple teams on same cluster?
+💡 Answer:
+•	Namespaces per team
+•	RBAC (strict access control)
+•	Resource quotas
+•	Network policies (isolation)
+👉 Advanced:
+Use separate node pools for critical workloads
+________________________________________
+🔥 4. Kubernetes at Scale (1000+ Pods)
+👉 Question:
+Cluster performance issues at scale. How do you optimize?
+💡 Answer:
+•	Tune:
+o	kube-apiserver
+o	etcd performance
+•	Use:
+o	Horizontal Pod Autoscaler
+o	Cluster Autoscaler
+•	Optimize:
+o	Resource requests/limits
+o	Reduce noisy neighbors
+👉 Add:
+“We monitor API server latency and etcd response times.”
+________________________________________
+🔥 5. Blue-Green vs Canary Deployment
+👉 Question:
+Explain with use cases.
+💡 Answer:
+Blue-Green:
+•	Two environments
+•	Switch traffic instantly
+•	Fast rollback
+Canary:
+•	Gradual rollout
+•	Monitor metrics
+👉 🔑 Strong line:
+“I prefer canary for risk-sensitive production systems.”
+________________________________________
+🔥 6. Secure Kubernetes Cluster
+👉 Question:
+How do you secure Kubernetes end-to-end?
+💡 Answer:
+•	RBAC
+•	Network policies
+•	Pod security standards
+•	Secrets encryption
+•	Image scanning
+👉 Advanced:
+Use OPA (Open Policy Agent)
+________________________________________
+🔥 7. Debugging Intermittent Production Issue
+👉 Question:
+App randomly fails under load.
+💡 Answer:
+•	Check:
+o	Resource limits
+o	HPA behavior
+o	Logs + metrics correlation
+•	Use:
+o	Prometheus + Grafana
+👉 Key:
+“I correlate metrics with logs to identify patterns.”
+________________________________________
+🔥 8. Stateful Applications in Kubernetes
+👉 Question:
+How do you manage databases?
+💡 Answer:
+•	Use StatefulSets
+•	Persistent Volumes
+•	Stable network identity
+👉 Add:
+“I ensure backup strategy and data replication.”
+________________________________________
+🔥 9. Cost Optimization in Kubernetes
+👉 Question:
+Reduce cluster cost.
+💡 Answer:
+•	Rightsizing resources
+•	Spot instances
+•	Auto-scaling nodes
+•	Remove idle workloads
+👉 Strong line:
+“We continuously monitor unused resources and optimize requests/limits.”
+________________________________________
+🔥 10. CI/CD for Kubernetes (End-to-End)
+👉 Question:
+Design CI/CD pipeline for K8s deployment.
+💡 Answer:
+1.	Code commit → Git
+2.	Build via Jenkins
+3.	Scan via SonarQube
+4.	Build Docker image
+5.	Push to Nexus/Registry
+6.	Deploy using Helm / kubectl
+7.	Monitor rollout
+👉 Add:
+“We implement automated rollback on failure.”
+________________________________________
+🔥 11. Handling Zero Downtime for DB Migrations
+👉 Question:
+How do you deploy schema changes?
+💡 Answer:
+•	Backward-compatible schema changes
+•	Run migrations separately
+•	Use feature flags
+________________________________________
+🔥 12. Network Debugging Between Services
+👉 Question:
+Service A cannot talk to Service B.
+💡 Answer:
+•	Check:
+o	DNS resolution
+o	Service endpoints
+o	Network policies
+•	Debug:
+•	kubectl exec -it <pod> -- curl <service>
+________________________________________
+🔥 13. Observability Strategy
+👉 Question:
+How do you monitor entire cluster?
+💡 Answer:
+•	Metrics → Prometheus
+•	Visualization → Grafana
+•	Logs → ELK
+•	Alerts → Alertmanager
+________________________________________
+🔥 14. Kubernetes Upgrade Strategy
+👉 Question:
+How do you upgrade cluster safely?
+💡 Answer:
+•	Upgrade control plane first
+•	Then worker nodes (rolling)
+•	Test workloads
+________________________________________
+🔥 15. Handling Noisy Neighbor Problem
+👉 Question:
+One app consuming all resources.
+💡 Answer:
+•	Resource limits
+•	Namespace quotas
+•	Node isolation
+________________________________________
+🧠 HOW TO STAND OUT (CRITICAL)
+At L3 level, ALWAYS include:
+✅ Trade-offs
+Example:
+“Blue-green is faster rollback, but costly.”
+✅ Real-world language
+•	“In production…”
+•	“We observed…”
+✅ Prevention
+Not just fixing
+________________________________________
+🚀 If You Want to Crack the Interview
+Next I can:
+•	Do a full L3 mock interview (very tough)
+•	Ask system design DevOps questions
+•	Help you frame answers from your resume
+Just say:
+👉 “Take L3 mock interview” (I’ll simulate real panel)
+
+________________________________________
+AWS SCENARIO QUESTIONS
+________________________________________
+🔥 6. Website Down in Production
+👉 Question:
+Your app on AWS is not accessible.
+💡 Debug Approach:
+1.	Check EC2 status
+2.	Check Load Balancer health
+3.	Check Security Groups
+4.	Check logs
+💡 Strong Answer:
+•	Verify EC2 running
+•	Check ALB target group health
+•	Validate ports (80/443)
+•	Check application logs
+👉 Add:
+“I also check CloudWatch metrics for anomalies.”
+________________________________________
+🔥 7. High AWS Bill
+👉 Question:
+Sudden spike in AWS cost.
+💡 Answer:
+•	Check billing dashboard
+•	Identify:
+o	Unused EC2
+o	Idle EBS volumes
+o	Data transfer
+•	Fix:
+o	Rightsizing
+o	Auto-scaling
+o	Reserved instances
+________________________________________
+🔥 8. EC2 CPU Utilization 100%
+👉 Question:
+Server CPU is maxed out.
+💡 Answer:
+•	Check processes:
+•	top
+•	Identify:
+o	Application issue
+o	Traffic spike
+•	Fix:
+o	Scale horizontally (Auto Scaling Group)
+o	Optimize code
+________________________________________
+🔥 9. Terraform Deployment Failed
+👉 Question:
+Terraform apply failed mid-way.
+💡 Answer:
+•	Check error logs
+•	Run:
+•	terraform plan
+•	Handle:
+o	Partial resources
+o	State consistency
+👉 Senior-level:
+“I ensure remote backend with state locking (S3 + DynamoDB).”
+________________________________________
+🔥 10. S3 Data Leak Concern
+👉 Question:
+Sensitive data exposed in S3.
+💡 Answer:
+•	Check bucket policy
+•	Remove public access
+•	Enable:
+o	Block public access
+o	IAM policies
+o	Encryption
+________________________________________
+🧠 HOW TO ANSWER (IMPORTANT FRAMEWORK)
+For ANY scenario, follow this structure:
+🧩 1. Understand problem
+Ask clarifying questions if needed
+🔍 2. Check basics
+•	Logs
+•	Metrics
+•	Configuration
+🛠️ 3. Identify root cause
+🚑 4. Fix issue
+🔒 5. Prevent future issue
+(This is where senior candidates stand out)
+________________________________________
+🚀 PRO INTERVIEW TIP
+Don’t just say:
+❌ “I will check logs”
+Say:
+✅ “First I check pod logs using kubectl logs, then describe the pod to identify events, then validate configs and resource limits…”
+________________________________________
+👉 Next Step
+If you want to go deeper, I can:
+•	Conduct a live mock interview (grill you like real interviewer)
+•	Give company-specific DevOps questions
+•	Ask advanced Kubernetes + system design questions
+Just say:
+👉 “Take mock interview now”
+
+
+
+AWS-heavy, aligned with real interviews
+
+Good—8 years in DevOps with AWS means you shouldn’t just rehearse basics. If you walk into an interview answering only “what is S3,” you’ll get filtered out fast. You’ll want scenario-based, architecture, and failure-analysis questions.
+Here’s a solid cloud-focused question bank (AWS-heavy, aligned with real interviews):
+________________________________________
+Core AWS Architecture (Scenario-Based)
+Design a highly available web application on AWS for millions of users. What services would you use and why?
+•	How would you design a multi-region failover strategy?
+•	Explain how you would build a zero-downtime deployment pipeline.
+•	Design a secure VPC architecture for a fintech app.
+•	When would you choose NLB vs ALB vs CLB, and why?
+________________________________________
+Compute (EC2, EKS, Scaling)
+•	How does Auto Scaling work under the hood?
+•	What happens when an EC2 instance fails in an Auto Scaling Group?
+•	How do you optimize EC2 costs for long-running workloads?
+•	Explain spot instances vs reserved vs on-demand with real use cases.
+•	In EKS, how do you handle:
+o	node failures?
+o	pod scheduling issues?
+o	cluster autoscaling?
+________________________________________
+🔹 Networking (VPC Deep Dive)
+•	Explain VPC peering vs Transit Gateway—when would you use each?
+•	How does routing work inside a VPC?
+•	What are NAT Gateway vs NAT Instance tradeoffs?
+•	Debug: Instance cannot access the internet—how do you troubleshoot?
+•	Explain Security Groups vs NACLs with real-world examples.
+________________________________________
+🔹 Storage (S3 + Advanced)
+•	Explain S3 consistency model (important nuance here).
+•	How do you secure sensitive data in S3?
+•	What is S3 lifecycle policy? Give real usage.
+•	Debug: Why is my S3 upload slow?
+•	Difference between EBS vs EFS vs S3 (deep comparison).
+________________________________________
+🔹 IAM (Critical for Senior Roles)
+•	How does IAM policy evaluation work?
+•	Difference between:
+o	Role vs User vs Group
+o	Inline vs Managed policies
+•	How do you implement least privilege access?
+•	Debug: User has access denied—how do you trace it?
+________________________________________
+🔹 Load Balancing & Traffic
+•	Deep dive into NLB vs ALB (layer 4 vs layer 7 implications).
+•	How does health check mechanism work?
+•	What happens if all targets fail health checks?
+•	Sticky sessions—when are they bad?
+________________________________________
+🔹 Monitoring & Observability
+•	What metrics do you monitor in CloudWatch for:
+o	EC2
+o	EKS
+o	Load balancers
+•	Difference between:
+o	Metrics
+o	Logs
+o	Traces
+•	How do you design a centralized logging system?
+________________________________________
+🔹 Kubernetes (EKS-Focused)
+•	How does Kubernetes networking work in AWS (CNI)?
+•	Explain:
+o	Pods
+o	Services
+o	Ingress
+•	How do you debug a CrashLoopBackOff?
+•	Rolling updates vs blue/green vs canary in Kubernetes.
+________________________________________
+🔹 CI/CD & DevOps Practices
+•	Design a pipeline using AWS services.
+•	How do you implement:
+o	Blue/Green deployment?
+o	Canary releases?
+•	How do you rollback safely?
+________________________________________
+🔹 Security (Must for Senior DevOps)
+•	How do you secure:
+o	VPC
+o	EC2
+o	S3
+•	What is defense in depth in AWS?
+•	How do you manage secrets securely?
+________________________________________
+🔹 Troubleshooting Scenarios (Very Important)
+Expect these in interviews:
+•	Website is slow → how do you debug?
+•	High AWS bill → how do you analyze?
+•	Pod not reachable → what steps?
+•	Traffic not hitting instances behind LB → why?
+•	Intermittent failures in production → approach?
+________________________________________
+🔹 Cost Optimization
+•	How do you reduce AWS cost in:
+o	Compute
+o	Storage
+o	Networking
+•	What tools do you use for cost analysis?
+•	Real example where you saved cost.
+________________________________________
+🔹 Advanced / Senior-Level
+•	Explain event-driven architecture in AWS.
+•	How do you design multi-tenant SaaS architecture?
+•	How would you migrate on-prem infra to AWS?
+•	Chaos engineering—have you implemented it?
+________________________________________
+💡 How to Prepare Smartly
+Don’t just memorize answers. Practice like this:
+•	Draw architecture diagrams
+•	Explain trade-offs
+•	Give real examples from your experience
+•	Think in terms of failure + scale + cost + security
+________________________________________
+If you want, I can:
+•	Do a mock interview (real-time Q&A)
+•	Give answers + model explanations
+•	Focus specifically on EKS or advanced AWS architecture
+Just tell me 👍
+
